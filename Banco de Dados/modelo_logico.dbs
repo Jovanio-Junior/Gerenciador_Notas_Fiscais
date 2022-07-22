@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Notas" id="Project-8ec" database="LogicalDesign" >
+	<schema name="INSTANCE" catalogname="Notas" >
+		<table name="notas" prior="Notas" >
+			<column name="id" type="INT" jt="4" mandatory="y" />
+			<column name="descricao" type="VARCHAR" length="150" jt="12" />
+			<column name="endereco" type="VARCHAR" length="1000" jt="12" mandatory="y" />
+			<column name="data_criacao" type="DATE" jt="91" mandatory="y" >
+				<comment><![CDATA[referente a criacao por usuario x]]></comment>
+			</column>
+			<column name="data_nota" type="DATE" jt="91" >
+				<comment><![CDATA[referente a data que a nota foi emitida]]></comment>
+			</column>
+			<column name="tipo_id" type="INT" length="25" jt="4" mandatory="y" />
+			<column name="usuario_id" type="INT" jt="4" mandatory="y" />
+			<index name="pk_notas" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="permissoes" prior="entity" >
+			<column name="id" type="INT" jt="4" mandatory="y" />
+			<column name="nome" type="VARCHAR" length="40" jt="12" />
+			<index name="pk_permissoes" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_permissoes_usuarios" virtual="y" to_schema="Notas.INSTANCE" to_table="usuarios" type="Identifying" >
+				<fk_column name="id" pk="permissoes_id" />
+			</fk>
+		</table>
+		<table name="tipo_arquivo" prior="tipo" >
+			<column name="id" type="INT" jt="4" mandatory="y" />
+			<column name="tipo" type="VARCHAR" length="25" jt="12" mandatory="y" />
+			<index name="pk_tipo_arquivo" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_tipo_arquivo_notas" virtual="y" to_schema="Notas.INSTANCE" to_table="notas" type="Identifying" >
+				<fk_column name="id" pk="tipo_id" />
+			</fk>
+		</table>
+		<table name="usuarios" prior="entity" >
+			<column name="id" type="INT" jt="4" mandatory="y" />
+			<column name="cpf" type="VARCHAR" length="11" jt="12" mandatory="y" />
+			<column name="nome" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<column name="permissoes_id" type="INT" jt="4" mandatory="y" />
+			<index name="pk_usuarios" unique="PRIMARY_KEY" >
+				<column name="cpf" />
+			</index>
+			<fk name="fk_usuarios_notas" virtual="y" to_schema="Notas.INSTANCE" to_table="notas" type="Identifying" >
+				<fk_column name="id" pk="usuario_id" />
+			</fk>
+		</table>
+	</schema>
+	<layout name="Default Layout" id="Layout-14b7" show_relation="columns" >
+		<entity schema="Notas.INSTANCE" name="notas" color="C1D8EE" x="656" y="48" />
+		<entity schema="Notas.INSTANCE" name="permissoes" color="C1D8EE" x="48" y="512" />
+		<entity schema="Notas.INSTANCE" name="tipo_arquivo" color="C1D8EE" x="1152" y="208" />
+		<entity schema="Notas.INSTANCE" name="usuarios" color="C1D8EE" x="320" y="352" />
+	</layout>
+</project>
