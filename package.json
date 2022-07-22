@@ -1,0 +1,11 @@
+{
+  "name": "gerenciador_notas_fiscais",
+  "version": "0.0.1",
+  "description": "Sistema para gerenciamento de notas fiscais",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jj",
+  "license": "ISC"
+}
